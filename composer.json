@@ -1,0 +1,14 @@
+{
+  "name": "deloachtech/utilities",
+  "description": "A library of utility functions.",
+  "type": "library",
+  "license": "proprietary",
+  "require": {
+    "php": ">=7.3.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "DeLoachTech\\Utilities\\": "src/"
+    }
+  }
+}
