@@ -29,7 +29,7 @@ class Image
      * @param bool $keepOriginal
      * @return bool
      */
-    function resize(string $originalFile, int $newWidth, string $targetFile, bool $keepOriginal = true): bool
+    public static function resize(string $originalFile, int $newWidth, string $targetFile, bool $keepOriginal = true): bool
     {
 
         //https://stackoverflow.com/questions/13596794/resize-images-with-php-support-png-jpg
