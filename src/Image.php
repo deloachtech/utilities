@@ -22,7 +22,35 @@ namespace DeLoachTech\Utilities;
 
 class Image
 {
+
     /**
+     * @param string $directory The directory of files (i.e. uploads/images)
+     * @param string $baseUrl The src base url (i.e. http://foo.com/uploads/images)
+     * @param string $globMask Default to jpg,gif,png,jpeg - see https://www.php.net/manual/en/function.glob.php
+     * @return array [url, date, size, path, name (with extension), extension (with dot)]
+     */
+    public static function list(string $directory, string $baseUrl, string $globMask = 'jpg,gif,png,jpeg'): array
+    {
+        $array = [];
+        $directory = rtrim($directory, '/');
+        $baseUrl = rtrim($baseUrl, '/');
+        foreach (glob("{$directory}/*.{{$globMask}}", GLOB_BRACE) as $image) {
+            $info = pathinfo($image);
+            $array[] = [
+                'url' => $baseUrl . '/' . $info['basename'],
+                'date' => date('m/d/y h:m A', filemtime($image)),
+                'size' => File::humanReadableFileSize(filesize($image), 0),
+                'path' =>$info['dirname'],
+                'name' =>$info['basename'],
+                'extension' => '.'.$info['extension'],
+            ];
+        }
+        return $array;
+    }
+
+
+    /**
+     * Saves a resized file to the target file with option to keep the original file.
      * @param string $originalFile
      * @param int $newWidth
      * @param string $targetFile The file name without extension.
@@ -71,7 +99,7 @@ class Image
             unlink($targetFile);
         }
 
-        if(!$keepOriginal){
+        if (!$keepOriginal) {
             unlink($originalFile);
         }
 
