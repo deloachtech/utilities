@@ -38,7 +38,7 @@ class Table
     }
 
 
-    public function getTable(): string
+    public function getTable(string $prepend = null, string $append = null): string
     {
         $attributes = '';
         foreach ($this->attributes as $k => $v) {
@@ -49,17 +49,17 @@ class Table
         $class = $this->id ? " class=\"{$this->class}\"": "";
 
         return <<<STR
+{$prepend}
 <table{$id}{$class}{$attributes}>
-<thead>
+<thead class="header">
 {$this->getColumns()}
 </thead>
-<tbody>
+<tbody class="list">
 {$this->getRows()}
 </tbody>
 </table>
+{$append}
 STR;
-
-
     }
 
 
