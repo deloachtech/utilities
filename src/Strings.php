@@ -22,6 +22,32 @@ namespace DeLoachTech\Utilities;
 class Strings
 {
 
+    /**
+     * Appends a link with value(s). The existing link query (if any) is used
+     * to determine the leading appending character (? or &). (The leading ? or &
+     * is therefore stripped from the value provided.)
+     * @param string $link
+     * @param string $value
+     * @return string
+     */
+    public static function appendLink(string $link, string $value): string
+    {
+        $value  = ltrim($value,'?&');
+
+        if(strpos($link,'?')>0){
+            return $link.'&'.$value;
+        }else{
+            return $link.'&'.$value;
+        }
+    }
+
+
+    public static function hyphenate($str, $charCont): string
+    {
+        return implode("-", str_split($str, $charCont));
+    }
+
+
     public static function generateKey(int $length = 64): string
     {
         if ($length < 1) {
